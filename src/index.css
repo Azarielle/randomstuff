@@ -16,5 +16,10 @@
     display: flex;
     justify-content: center;
     flex-wrap: wrap;
+    padding: 2rem;
     justify-content: space-between;
+}
+
+.card-grid-item {
+    margin: 3rem;
 }
