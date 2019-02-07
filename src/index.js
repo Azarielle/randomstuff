@@ -1,6 +1,5 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import Image from 'react-image-resizer';
 import './index.css';
 import card2 from './assets/card2.png';
 
@@ -13,63 +12,71 @@ class NavBar extends React.Component {
         )
     }
 }
-class Card extends React.Component {
-    render() {
-        return (
-            <div
-                className="card-grid-item"
-                onClick={() => this.props.onClick()}
-            >
-                {this.props.value}
-                <img src={card2} width={230} height={330} />
-            </div >
-        )
-    }
-}
 
-class ActiveCard extends React.Component {
+
+class Card extends React.Component {
+    constructor(props) {
+        super(props)
+        this.state = {
+            shouldOverlay: false
+        }
+    }
+
+
+    handleBackgroundDisplayClick() {
+        this.setState({ shouldOverlay: true })
+    }
+
+    handleModalDisplayClick() {
+        this.setState({ shouldOverlay: false })
+    }
+
     render() {
+        const backgroundDisplay = <div
+            className="card-grid-item"
+            onClick={() => this.handleBackgroundDisplayClick()}
+        >
+            <img src={card2} width={230} height={330} />
+        </div >
+
+        const modalDisplay =
+            <div className="active-display" onClick={() => { this.handleModalDisplayClick() }}>
+                <div className="active-card-modal">
+                    <img src={card2} alt="this is active" />
+                </div>
+            </div >
+
+
+        // if (this.state.shouldOverlay) 
+        // { return modalDisplay } 
+        //  else {return  null}
         return (
-            <div className="active-card">
-                <img src={card2} alt="this is active" />
+            <div>
+                {backgroundDisplay}
+                {this.state.shouldOverlay ? modalDisplay : null}
             </div>
         )
     }
 }
 
+
 class DisplayCards extends React.Component {
-    constructor(props) {
-        super(props);
-        this.state = {
-            activeCard: false
-        };
-    }
-    handleClick() {
-        let activeCard = !this.state.activeCard;
-        activeCard = this.setState({ activeCard: <ActiveCard /> })
-
-    }
-
-    renderCard() {
+    renderCards() {
         const cardArr = []
         for (let i = 0; i < 9; i++) {
             cardArr.push(<Card
                 key={i}
-                value={this.state.activeCard}
-                onClick={() => this.handleClick(i)}
             />)
         }
-
         return cardArr
-
     }
+
     render() {
         return (
             <div className="card-container">
                 <div className="card-grid">
-                    {this.renderCard()}
+                    {this.renderCards()}
                 </div>
-
             </div>
         )
     }
