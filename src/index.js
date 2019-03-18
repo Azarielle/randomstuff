@@ -3,6 +3,26 @@ import ReactDOM from 'react-dom';
 import './index.css';
 import card2 from './assets/card2.png';
 
+
+
+class GradientBackground extends React.Component {
+    constructor(props) {
+        super(props)
+        this.state = {
+            gradientactive: false,
+        }
+    }
+
+    componentDidMount() { }
+
+    render() {
+        return (
+            <div className="landing-page"></div>
+        )
+    }
+
+}
+
 class NavBar extends React.Component {
     render() {
         return (
@@ -85,6 +105,7 @@ class DisplayCards extends React.Component {
 function App() {
     return (
         <div>
+            <GradientBackground />
             <NavBar />
             <DisplayCards />
         </div>
